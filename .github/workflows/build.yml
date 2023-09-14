@@ -2,7 +2,7 @@ name: Build and push github-runner docker image to github container registry
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: write
