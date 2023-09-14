@@ -16,6 +16,11 @@ RUN apt-get update \
         git \
         jq \
         iputils-ping \
+        build-essential \
+        pkg-config \
+        libssl-dev \
+        libcurl4-openssl-dev \
+        libxml2-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m github \
