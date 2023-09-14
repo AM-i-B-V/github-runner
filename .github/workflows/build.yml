@@ -1,0 +1,33 @@
+name: Build and push github-runner docker image to github container registry
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  packages: write
+
+env:
+    IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: build
+        name: Build and Push Image
+        env:
+            CONTAINER_IMAGE_URI: 'ghcr.io/am-i-b-v/${{ github.event.repository.name }}:${{ env.IMAGE_TAG }}'
+        run: |
+          docker build -t ${{ env.CONTAINER_IMAGE_URI }} .
+          docker push $CONTAINER_IMAGE_URI
+          echo ":whale2:App Image Tag: ${{ env.CONTAINER_IMAGE_URI }} " >> $GITHUB_STEP_SUMMARY

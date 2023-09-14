@@ -43,6 +43,7 @@ fi
     --url "${registration_url}" \
     --work "${RUNNER_WORKDIR}" \
     --labels "${RUNNER_LABELS}" \
+    --ephemeral \
     --unattended \
     --replace
 
@@ -63,4 +64,3 @@ trap 'remove; exit 143' TERM
 ./runsvc.sh "$*" &
 
 wait $!
-
