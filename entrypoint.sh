@@ -61,6 +61,7 @@ remove() {
 
 runner_timeout() {
     sleep "${RUNNER_TIMEOUT}"
+    echo "Runner timeout of ${RUNNER_TIMEOUT} seconds exceeded"
     remove
     exit 0
 }
