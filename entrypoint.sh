@@ -64,6 +64,7 @@ runner_timeout() {
     exit 0
 }
 
+echo "Configuring runner timeout to ${RUNNER_TIMEOUT} seconds"
 runner_timeout &
 
 trap 'remove; exit 130' INT
