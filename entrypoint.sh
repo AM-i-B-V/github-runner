@@ -5,6 +5,7 @@ if [ -n "${ADDITIONAL_PACKAGES}" ]; then
     echo "Installing additional packages: ${TO_BE_INSTALLED}"
     sudo apt-get update && sudo apt-get install -y ${TO_BE_INSTALLED} && sudo apt-get clean
 fi
+echo "Configuring runner timeout to ${RUNNER_TIMEOUT} seconds"
 
 registration_url="https://github.com/${GITHUB_OWNER}"
 token_url="https://api.github.com/orgs/${GITHUB_OWNER}/actions/runners/registration-token"
@@ -64,7 +65,6 @@ runner_timeout() {
     exit 0
 }
 
-echo "Configuring runner timeout to ${RUNNER_TIMEOUT} seconds"
 runner_timeout &
 
 trap 'remove; exit 130' INT
