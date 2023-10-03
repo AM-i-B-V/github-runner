@@ -58,6 +58,14 @@ remove() {
     ./config.sh remove --unattended --token "${REMOVE_TOKEN}"
 }
 
+runner_timeout() {
+    sleep "${RUNNER_TIMEOUT}"
+    remove
+    exit 0
+}
+
+runner_timeout &
+
 trap 'remove; exit 130' INT
 trap 'remove; exit 143' TERM
 

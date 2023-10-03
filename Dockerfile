@@ -8,6 +8,7 @@ ENV GITHUB_REPOSITORY ""
 ENV RUNNER_WORKDIR "_work"
 ENV RUNNER_LABELS "self-hosted"
 ENV ADDITIONAL_PACKAGES ""
+ENV RUNNER_TIMEOUT "7200"
 
 RUN apt-get update \
     && apt-get install -y \
