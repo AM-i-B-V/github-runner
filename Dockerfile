@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM nestybox/ubuntu-focal-systemd-docker
 
 ENV RUNNER_NAME "runner"
 ENV GITHUB_PAT ""
@@ -9,6 +9,7 @@ ENV RUNNER_WORKDIR "_work"
 ENV RUNNER_LABELS "self-hosted"
 ENV ADDITIONAL_PACKAGES ""
 ENV RUNNER_TIMEOUT "7200"
+ENV RUNNER_ALLOW_RUNASROOT "true"
 
 RUN apt-get update \
     && apt-get install -y \
@@ -26,6 +27,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m github \
     && usermod -aG sudo github \
+    && usermod -aG docker github \
     && echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER github
